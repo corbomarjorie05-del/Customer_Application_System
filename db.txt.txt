@@ -1,0 +1,40 @@
+erDiagram
+    USERS ||--|| PROFILES : "has"
+    USERS ||--o{ APPLICATIONS : "submits"
+    APPLICATIONS ||--o{ APPLICATION_LOGS : "tracks"
+
+    USERS {
+        uuid user_id PK
+        string email UK
+        string password_hash
+        string role
+        timestamp created_at
+    }
+
+    PROFILES {
+        uuid profile_id PK
+        uuid user_id FK
+        string first_name
+        string last_name
+        string phone_number
+        text address_line1
+        timestamp updated_at
+    }
+
+    APPLICATIONS {
+        uuid app_id PK
+        uuid user_id FK
+        string app_type
+        string status
+        jsonb data_json
+        timestamp submitted_at
+    }
+
+    APPLICATION_LOGS {
+        uuid log_id PK
+        uuid app_id FK
+        string previous_status
+        string new_status
+        uuid changed_by_user_id FK
+        timestamp changed_at
+    }
